@@ -1,0 +1,77 @@
+project:
+  name: "coberturas_armenia"
+  seed: 42
+
+zona:
+  nombre: "Armenia, Quindio"
+  pais: "Colombia"
+  departamento: "Quindio"
+  municipio: "Armenia"
+  centroide: [-75.6818, 4.5339]
+  radio_km: 15
+
+imagen:
+  coleccion: "COPERNICUS/S2_SR_HARMONIZED"
+  resolucion: 10
+  bandas: ["B2", "B3", "B4", "B8", "B11", "B12"]
+  fecha_inicio: "2024-01-01"
+  fecha_fin: "2024-12-31"
+  nube_max: 20
+
+indices:
+  - NDVI
+  - NDWI
+  - NDBI
+
+etiquetas:
+  fuente: "IDEAM"
+  resolucion: 10
+  num_clases: 23
+  clases:
+    0: "No clasificado"
+    1: "Bosque denso"
+    2: "Bosque fragmentado"
+    3: "Bosque de galeria"
+    4: "Bosque secundario"
+    5: "Pastos"
+    6: "Agricultura"
+    7: "Zonas urbanas"
+    8: "Cuerpos de agua"
+    9: "Zonas desnudas"
+    10: "Nubes"
+    11: "Paramo"
+    12: "Manglar"
+    13: "Bosque plantado"
+    14: "Humedal"
+    15: "Terreno arenoso"
+    16: "Terreno rocoso"
+    17: "Cultivos permanentes"
+    18: "Cultivos transitorios"
+    19: "Pastos limpios"
+    20: "Pastos con arboles"
+    21: "Zonas pantanosas"
+    22: "Vegetacion acuatica"
+
+modelo:
+  nombre: "nvidia/segformer-b2-finetuned-ade-512-512"
+  input_size: 256
+  batch_size: 8
+  epochs: 50
+  lr: 0.00006
+  weight_decay: 0.01
+  early_stopping_patience: 10
+
+entrenamiento:
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+  patch_size: 256
+  overlap: 0.5
+  num_workers: 4
+
+paths:
+  raw: "data/raw"
+  labels: "data/labels"
+  patches: "data/patches"
+  models: "models"
+  output: "output"
